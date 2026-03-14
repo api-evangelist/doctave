@@ -1,0 +1,619 @@
+openapi: 3.1.0
+info:
+  title: Doctave API
+  description: >-
+    The Doctave API provides programmatic access to manage documentation sites,
+    deployments, pages, and search on the Doctave docs-as-code platform. It
+    allows teams to automate documentation workflows, trigger deployments,
+    manage site configurations, and integrate documentation search into their
+    own applications and developer portals.
+  version: 1.0.0
+  contact:
+    name: Doctave
+    url: https://www.doctave.com/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: https://api.doctave.com/v1
+    description: Doctave Production API
+paths:
+  /sites:
+    get:
+      operationId: listSites
+      summary: List Sites
+      description: >-
+        Returns a list of all documentation sites associated with the
+        authenticated account.
+      tags:
+        - Sites
+      responses:
+        '200':
+          description: A list of documentation sites.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Site'
+        '401':
+          description: Authentication credentials are missing or invalid.
+    post:
+      operationId: createSite
+      summary: Create Site
+      description: Creates a new documentation site with the provided configuration.
+      tags:
+        - Sites
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteInput'
+      responses:
+        '201':
+          description: The newly created documentation site.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '400':
+          description: The request body is invalid.
+        '401':
+          description: Authentication credentials are missing or invalid.
+  /sites/{siteId}:
+    get:
+      operationId: getSite
+      summary: Get Site
+      description: Returns the details of a specific documentation site.
+      tags:
+        - Sites
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: The requested documentation site.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+    put:
+      operationId: updateSite
+      summary: Update Site
+      description: Updates the configuration of an existing documentation site.
+      tags:
+        - Sites
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteInput'
+      responses:
+        '200':
+          description: The updated documentation site.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '400':
+          description: The request body is invalid.
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+    delete:
+      operationId: deleteSite
+      summary: Delete Site
+      description: Deletes a documentation site and all associated content.
+      tags:
+        - Sites
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      responses:
+        '204':
+          description: The site was successfully deleted.
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+  /sites/{siteId}/deployments:
+    get:
+      operationId: listDeployments
+      summary: List Deployments
+      description: >-
+        Returns a list of all deployments for a specific documentation site,
+        ordered by creation date.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: A list of deployments for the site.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Deployment'
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+    post:
+      operationId: createDeployment
+      summary: Create Deployment
+      description: >-
+        Triggers a new deployment for the documentation site, building and
+        publishing the latest content from the configured source.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeploymentInput'
+      responses:
+        '201':
+          description: The newly created deployment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '400':
+          description: The request body is invalid.
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+  /sites/{siteId}/deployments/{deploymentId}:
+    get:
+      operationId: getDeployment
+      summary: Get Deployment
+      description: Returns the details and status of a specific deployment.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/DeploymentId'
+      responses:
+        '200':
+          description: The requested deployment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified deployment was not found.
+  /sites/{siteId}/pages:
+    get:
+      operationId: listPages
+      summary: List Pages
+      description: >-
+        Returns a list of all pages within a documentation site, including
+        their metadata and hierarchy.
+      tags:
+        - Pages
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: A list of documentation pages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Page'
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+    post:
+      operationId: createPage
+      summary: Create Page
+      description: Creates a new documentation page within a site.
+      tags:
+        - Pages
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageInput'
+      responses:
+        '201':
+          description: The newly created page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: The request body is invalid.
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+  /sites/{siteId}/pages/{pageId}:
+    get:
+      operationId: getPage
+      summary: Get Page
+      description: Returns the content and metadata of a specific documentation page.
+      tags:
+        - Pages
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/PageId'
+      responses:
+        '200':
+          description: The requested documentation page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified page was not found.
+    put:
+      operationId: updatePage
+      summary: Update Page
+      description: Updates the content or metadata of an existing documentation page.
+      tags:
+        - Pages
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/PageId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageInput'
+      responses:
+        '200':
+          description: The updated documentation page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: The request body is invalid.
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified page was not found.
+    delete:
+      operationId: deletePage
+      summary: Delete Page
+      description: Deletes a documentation page from the site.
+      tags:
+        - Pages
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/PageId'
+      responses:
+        '204':
+          description: The page was successfully deleted.
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified page was not found.
+  /sites/{siteId}/search:
+    get:
+      operationId: searchSite
+      summary: Search Site
+      description: >-
+        Performs a full-text search across all pages within a documentation
+        site and returns matching results with highlighted snippets.
+      tags:
+        - Search
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - name: q
+          in: query
+          required: true
+          description: The search query string.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of results to return.
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          required: false
+          description: Number of results to skip for pagination.
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Search results matching the query.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+components:
+  parameters:
+    SiteId:
+      name: siteId
+      in: path
+      required: true
+      description: The unique identifier of the documentation site.
+      schema:
+        type: string
+    DeploymentId:
+      name: deploymentId
+      in: path
+      required: true
+      description: The unique identifier of the deployment.
+      schema:
+        type: string
+    PageId:
+      name: pageId
+      in: path
+      required: true
+      description: The unique identifier of the documentation page.
+      schema:
+        type: string
+  schemas:
+    Site:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the documentation site.
+        name:
+          type: string
+          description: Display name of the documentation site.
+        slug:
+          type: string
+          description: URL-friendly slug for the site.
+        description:
+          type: string
+          description: A brief description of the documentation site.
+        customDomain:
+          type: string
+          description: Custom domain configured for the site.
+        repository:
+          type: string
+          description: Source repository URL for the documentation content.
+        branch:
+          type: string
+          description: Git branch used for building the site.
+        visibility:
+          type: string
+          enum:
+            - public
+            - private
+          description: Whether the site is publicly accessible or private.
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the site was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the site was last updated.
+      required:
+        - id
+        - name
+        - slug
+    SiteInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Display name of the documentation site.
+        slug:
+          type: string
+          description: URL-friendly slug for the site.
+        description:
+          type: string
+          description: A brief description of the documentation site.
+        customDomain:
+          type: string
+          description: Custom domain configured for the site.
+        repository:
+          type: string
+          description: Source repository URL for the documentation content.
+        branch:
+          type: string
+          description: Git branch used for building the site.
+        visibility:
+          type: string
+          enum:
+            - public
+            - private
+          description: Whether the site is publicly accessible or private.
+      required:
+        - name
+    Deployment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the deployment.
+        siteId:
+          type: string
+          description: Identifier of the site this deployment belongs to.
+        status:
+          type: string
+          enum:
+            - pending
+            - building
+            - deploying
+            - live
+            - failed
+          description: Current status of the deployment.
+        commitSha:
+          type: string
+          description: Git commit SHA that triggered the deployment.
+        branch:
+          type: string
+          description: Git branch used for this deployment.
+        triggeredBy:
+          type: string
+          description: User or system that triggered the deployment.
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the deployment was created.
+        finishedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the deployment finished.
+        buildLog:
+          type: string
+          description: URL to the build log for this deployment.
+      required:
+        - id
+        - siteId
+        - status
+    DeploymentInput:
+      type: object
+      properties:
+        branch:
+          type: string
+          description: Git branch to deploy from.
+        commitSha:
+          type: string
+          description: Specific commit SHA to deploy.
+    Page:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the documentation page.
+        siteId:
+          type: string
+          description: Identifier of the site this page belongs to.
+        title:
+          type: string
+          description: Title of the documentation page.
+        slug:
+          type: string
+          description: URL-friendly slug for the page.
+        content:
+          type: string
+          description: Markdown content of the documentation page.
+        parentId:
+          type: string
+          description: Identifier of the parent page for hierarchical navigation.
+        order:
+          type: integer
+          description: Sort order of the page within its parent.
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the page was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the page was last updated.
+      required:
+        - id
+        - siteId
+        - title
+        - slug
+    PageInput:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the documentation page.
+        slug:
+          type: string
+          description: URL-friendly slug for the page.
+        content:
+          type: string
+          description: Markdown content of the documentation page.
+        parentId:
+          type: string
+          description: Identifier of the parent page for hierarchical navigation.
+        order:
+          type: integer
+          description: Sort order of the page within its parent.
+      required:
+        - title
+        - content
+    SearchResults:
+      type: object
+      properties:
+        query:
+          type: string
+          description: The original search query.
+        totalResults:
+          type: integer
+          description: Total number of matching results.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+      required:
+        - query
+        - totalResults
+        - results
+    SearchResult:
+      type: object
+      properties:
+        pageId:
+          type: string
+          description: Identifier of the matching page.
+        title:
+          type: string
+          description: Title of the matching page.
+        slug:
+          type: string
+          description: URL slug of the matching page.
+        snippet:
+          type: string
+          description: Text snippet with highlighted matching terms.
+        score:
+          type: number
+          description: Relevance score for the search result.
+      required:
+        - pageId
+        - title
+        - snippet
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        Authentication token obtained from the Doctave dashboard or via
+        API key management.
+security:
+  - bearerAuth: []
+tags:
+  - name: Sites
+    description: Manage documentation sites and their configurations.
+  - name: Deployments
+    description: Trigger and monitor documentation site deployments.
+  - name: Pages
+    description: Create, read, update, and delete documentation pages.
+  - name: Search
+    description: Search across documentation site content.

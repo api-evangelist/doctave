@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/doctave/refs/heads/main/json-schema/doctave-site-schema.json",
+  "title": "Doctave Site",
+  "description": "A documentation site managed on the Doctave docs-as-code platform, representing a collection of pages, configuration, and deployment settings.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the documentation site."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the documentation site."
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly slug for the site.",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "description": {
+      "type": "string",
+      "description": "A brief description of the documentation site."
+    },
+    "customDomain": {
+      "type": "string",
+      "format": "hostname",
+      "description": "Custom domain configured for the site."
+    },
+    "repository": {
+      "type": "string",
+      "format": "uri",
+      "description": "Source repository URL for the documentation content."
+    },
+    "branch": {
+      "type": "string",
+      "description": "Git branch used for building the site.",
+      "default": "main"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["public", "private"],
+      "description": "Whether the site is publicly accessible or private."
+    },
+    "navigation": {
+      "type": "array",
+      "description": "Ordered list of navigation items defining the site structure.",
+      "items": {
+        "$ref": "#/$defs/NavigationItem"
+      }
+    },
+    "theme": {
+      "type": "object",
+      "description": "Theme and branding configuration for the site.",
+      "properties": {
+        "primaryColor": {
+          "type": "string",
+          "description": "Primary brand color in hex format.",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "logo": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the site logo image."
+        },
+        "favicon": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the site favicon."
+        }
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the site was created."
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the site was last updated."
+    }
+  },
+  "required": ["id", "name", "slug"],
+  "$defs": {
+    "NavigationItem": {
+      "type": "object",
+      "description": "A navigation entry representing a page or section in the site hierarchy.",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Display title of the navigation item."
+        },
+        "path": {
+          "type": "string",
+          "description": "URL path for the navigation item."
+        },
+        "children": {
+          "type": "array",
+          "description": "Nested navigation items for sub-sections.",
+          "items": {
+            "$ref": "#/$defs/NavigationItem"
+          }
+        }
+      },
+      "required": ["title"]
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/doctave/refs/heads/main/json-schema/doctave-deployment-schema.json",
+  "title": "Doctave Deployment",
+  "description": "A deployment record for a Doctave documentation site, representing a build and publish operation triggered by a commit or manual action.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the deployment."
+    },
+    "siteId": {
+      "type": "string",
+      "description": "Identifier of the site this deployment belongs to."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "building", "deploying", "live", "failed"],
+      "description": "Current status of the deployment."
+    },
+    "commitSha": {
+      "type": "string",
+      "description": "Git commit SHA that triggered the deployment.",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "branch": {
+      "type": "string",
+      "description": "Git branch used for this deployment."
+    },
+    "triggeredBy": {
+      "type": "string",
+      "description": "User or system that triggered the deployment."
+    },
+    "environment": {
+      "type": "string",
+      "enum": ["production", "staging", "preview"],
+      "description": "Target environment for the deployment."
+    },
+    "buildDuration": {
+      "type": "integer",
+      "description": "Duration of the build step in seconds."
+    },
+    "deployDuration": {
+      "type": "integer",
+      "description": "Duration of the deploy step in seconds."
+    },
+    "buildLog": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the build log for this deployment."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL where the deployed documentation is accessible."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the deployment was created."
+    },
+    "finishedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the deployment finished."
+    }
+  },
+  "required": ["id", "siteId", "status"]
+}

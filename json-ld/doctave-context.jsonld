@@ -1,0 +1,51 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "doctave": "https://www.doctave.com/ns#",
+    "id": "@id",
+    "type": "@type",
+    "Site": "doctave:Site",
+    "Deployment": "doctave:Deployment",
+    "Page": "doctave:Page",
+    "SearchResult": "doctave:SearchResult",
+    "name": "schema:name",
+    "description": "schema:description",
+    "slug": "doctave:slug",
+    "customDomain": "doctave:customDomain",
+    "repository": "schema:codeRepository",
+    "branch": "doctave:branch",
+    "visibility": "doctave:visibility",
+    "navigation": "doctave:navigation",
+    "theme": "doctave:theme",
+    "siteId": {
+      "@id": "doctave:siteId",
+      "@type": "@id"
+    },
+    "status": "doctave:status",
+    "commitSha": "doctave:commitSha",
+    "triggeredBy": "doctave:triggeredBy",
+    "environment": "doctave:environment",
+    "buildDuration": "doctave:buildDuration",
+    "deployDuration": "doctave:deployDuration",
+    "buildLog": {
+      "@id": "doctave:buildLog",
+      "@type": "@id"
+    },
+    "title": "schema:headline",
+    "content": "schema:text",
+    "parentId": {
+      "@id": "doctave:parentId",
+      "@type": "@id"
+    },
+    "order": "schema:position",
+    "snippet": "doctave:snippet",
+    "score": "doctave:score",
+    "query": "doctave:query",
+    "totalResults": "doctave:totalResults",
+    "results": "doctave:results",
+    "createdAt": "schema:dateCreated",
+    "updatedAt": "schema:dateModified",
+    "finishedAt": "doctave:finishedAt",
+    "url": "schema:url"
+  }
+}
