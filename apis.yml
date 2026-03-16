@@ -47,7 +47,7 @@ common:
     type: Pricing
     description: 'null'
 created: '2025-01-08'
-modified: '2026-03-14'
+modified: '2026-03-16'
 position: Consuming
 description: >-
   Doctave is a platform for building modern technical documentation sites. Bring
@@ -57,5 +57,5 @@ description: >-
   search, and automated deployments.
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.19'
