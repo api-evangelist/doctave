@@ -21,7 +21,7 @@ paths:
   /sites:
     get:
       operationId: listSites
-      summary: List Sites
+      summary: Doctave List Sites
       description: >-
         Returns a list of all documentation sites associated with the
         authenticated account.
@@ -40,7 +40,7 @@ paths:
           description: Authentication credentials are missing or invalid.
     post:
       operationId: createSite
-      summary: Create Site
+      summary: Doctave Create Site
       description: Creates a new documentation site with the provided configuration.
       tags:
         - Sites
@@ -64,7 +64,7 @@ paths:
   /sites/{siteId}:
     get:
       operationId: getSite
-      summary: Get Site
+      summary: Doctave Get Site
       description: Returns the details of a specific documentation site.
       tags:
         - Sites
@@ -83,7 +83,7 @@ paths:
           description: The specified site was not found.
     put:
       operationId: updateSite
-      summary: Update Site
+      summary: Doctave Update Site
       description: Updates the configuration of an existing documentation site.
       tags:
         - Sites
@@ -110,7 +110,7 @@ paths:
           description: The specified site was not found.
     delete:
       operationId: deleteSite
-      summary: Delete Site
+      summary: Doctave Delete Site
       description: Deletes a documentation site and all associated content.
       tags:
         - Sites
@@ -126,7 +126,7 @@ paths:
   /sites/{siteId}/deployments:
     get:
       operationId: listDeployments
-      summary: List Deployments
+      summary: Doctave List Deployments
       description: >-
         Returns a list of all deployments for a specific documentation site,
         ordered by creation date.
@@ -149,7 +149,7 @@ paths:
           description: The specified site was not found.
     post:
       operationId: createDeployment
-      summary: Create Deployment
+      summary: Doctave Create Deployment
       description: >-
         Triggers a new deployment for the documentation site, building and
         publishing the latest content from the configured source.
@@ -179,7 +179,7 @@ paths:
   /sites/{siteId}/deployments/{deploymentId}:
     get:
       operationId: getDeployment
-      summary: Get Deployment
+      summary: Doctave Get Deployment
       description: Returns the details and status of a specific deployment.
       tags:
         - Deployments
@@ -200,7 +200,7 @@ paths:
   /sites/{siteId}/pages:
     get:
       operationId: listPages
-      summary: List Pages
+      summary: Doctave List Pages
       description: >-
         Returns a list of all pages within a documentation site, including
         their metadata and hierarchy.
@@ -223,7 +223,7 @@ paths:
           description: The specified site was not found.
     post:
       operationId: createPage
-      summary: Create Page
+      summary: Doctave Create Page
       description: Creates a new documentation page within a site.
       tags:
         - Pages
@@ -251,7 +251,7 @@ paths:
   /sites/{siteId}/pages/{pageId}:
     get:
       operationId: getPage
-      summary: Get Page
+      summary: Doctave Get Page
       description: Returns the content and metadata of a specific documentation page.
       tags:
         - Pages
@@ -271,7 +271,7 @@ paths:
           description: The specified page was not found.
     put:
       operationId: updatePage
-      summary: Update Page
+      summary: Doctave Update Page
       description: Updates the content or metadata of an existing documentation page.
       tags:
         - Pages
@@ -299,7 +299,7 @@ paths:
           description: The specified page was not found.
     delete:
       operationId: deletePage
-      summary: Delete Page
+      summary: Doctave Delete Page
       description: Deletes a documentation page from the site.
       tags:
         - Pages
@@ -316,7 +316,7 @@ paths:
   /sites/{siteId}/search:
     get:
       operationId: searchSite
-      summary: Search Site
+      summary: Doctave Search Site
       description: >-
         Performs a full-text search across all pages within a documentation
         site and returns matching results with highlighted snippets.
