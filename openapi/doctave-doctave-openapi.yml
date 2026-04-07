@@ -609,11 +609,11 @@ components:
 security:
   - bearerAuth: []
 tags:
-  - name: Sites
-    description: Manage documentation sites and their configurations.
   - name: Deployments
     description: Trigger and monitor documentation site deployments.
   - name: Pages
     description: Create, read, update, and delete documentation pages.
   - name: Search
     description: Search across documentation site content.
+  - name: Sites
+    description: Manage documentation sites and their configurations.

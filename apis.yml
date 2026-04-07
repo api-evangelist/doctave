@@ -5,9 +5,9 @@ apis:
   - aid: doctave:doctave
     name: Doctave API
     tags:
+      - Docs-As-Code
       - Documentation
       - Platform
-      - Docs-as-Code
     humanURL: https://www.doctave.com/
     properties:
       - url: https://www.doctave.com/
@@ -24,8 +24,8 @@ name: Doctave
 tags:
   - Documentation
   - OpenAPI
-  - Portals
   - Platform
+  - Portals
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
