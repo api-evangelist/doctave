@@ -1,0 +1,479 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Doctave API
+  description: The Doctave API provides programmatic access to manage documentation sites, deployments, pages, and search
+    on the Doctave docs-as-code platform. It allows teams to automate documentation workflows, trigger deployments, manage
+    site configurations, and integrate documentation search into their own applications and developer portals.
+  tags:
+  - Doctave
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: doctave
+    baseUri: https://api.doctave.com/v1
+    description: Doctave API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{DOCTAVE_TOKEN}}'
+    resources:
+    - name: sites
+      path: /sites
+      operations:
+      - name: listsites
+        method: GET
+        description: Doctave List Sites
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createsite
+        method: POST
+        description: Doctave Create Site
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sites-siteid
+      path: /sites/{siteId}
+      operations:
+      - name: getsite
+        method: GET
+        description: Doctave Get Site
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatesite
+        method: PUT
+        description: Doctave Update Site
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletesite
+        method: DELETE
+        description: Doctave Delete Site
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sites-siteid-deployments
+      path: /sites/{siteId}/deployments
+      operations:
+      - name: listdeployments
+        method: GET
+        description: Doctave List Deployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdeployment
+        method: POST
+        description: Doctave Create Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sites-siteid-deployments-deploymentid
+      path: /sites/{siteId}/deployments/{deploymentId}
+      operations:
+      - name: getdeployment
+        method: GET
+        description: Doctave Get Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sites-siteid-pages
+      path: /sites/{siteId}/pages
+      operations:
+      - name: listpages
+        method: GET
+        description: Doctave List Pages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createpage
+        method: POST
+        description: Doctave Create Page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sites-siteid-pages-pageid
+      path: /sites/{siteId}/pages/{pageId}
+      operations:
+      - name: getpage
+        method: GET
+        description: Doctave Get Page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatepage
+        method: PUT
+        description: Doctave Update Page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletepage
+        method: DELETE
+        description: Doctave Delete Page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sites-siteid-search
+      path: /sites/{siteId}/search
+      operations:
+      - name: searchsite
+        method: GET
+        description: Doctave Search Site
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: true
+          description: The search query string.
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of results to return.
+        - name: offset
+          in: query
+          type: integer
+          description: Number of results to skip for pagination.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: doctave-rest
+    description: REST adapter for Doctave API.
+    resources:
+    - path: /sites
+      name: listsites
+      operations:
+      - method: GET
+        name: listsites
+        description: Doctave List Sites
+        call: doctave.listsites
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites
+      name: createsite
+      operations:
+      - method: POST
+        name: createsite
+        description: Doctave Create Site
+        call: doctave.createsite
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites/{siteId}
+      name: getsite
+      operations:
+      - method: GET
+        name: getsite
+        description: Doctave Get Site
+        call: doctave.getsite
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites/{siteId}
+      name: updatesite
+      operations:
+      - method: PUT
+        name: updatesite
+        description: Doctave Update Site
+        call: doctave.updatesite
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites/{siteId}
+      name: deletesite
+      operations:
+      - method: DELETE
+        name: deletesite
+        description: Doctave Delete Site
+        call: doctave.deletesite
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites/{siteId}/deployments
+      name: listdeployments
+      operations:
+      - method: GET
+        name: listdeployments
+        description: Doctave List Deployments
+        call: doctave.listdeployments
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites/{siteId}/deployments
+      name: createdeployment
+      operations:
+      - method: POST
+        name: createdeployment
+        description: Doctave Create Deployment
+        call: doctave.createdeployment
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites/{siteId}/deployments/{deploymentId}
+      name: getdeployment
+      operations:
+      - method: GET
+        name: getdeployment
+        description: Doctave Get Deployment
+        call: doctave.getdeployment
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites/{siteId}/pages
+      name: listpages
+      operations:
+      - method: GET
+        name: listpages
+        description: Doctave List Pages
+        call: doctave.listpages
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites/{siteId}/pages
+      name: createpage
+      operations:
+      - method: POST
+        name: createpage
+        description: Doctave Create Page
+        call: doctave.createpage
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites/{siteId}/pages/{pageId}
+      name: getpage
+      operations:
+      - method: GET
+        name: getpage
+        description: Doctave Get Page
+        call: doctave.getpage
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites/{siteId}/pages/{pageId}
+      name: updatepage
+      operations:
+      - method: PUT
+        name: updatepage
+        description: Doctave Update Page
+        call: doctave.updatepage
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites/{siteId}/pages/{pageId}
+      name: deletepage
+      operations:
+      - method: DELETE
+        name: deletepage
+        description: Doctave Delete Page
+        call: doctave.deletepage
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sites/{siteId}/search
+      name: searchsite
+      operations:
+      - method: GET
+        name: searchsite
+        description: Doctave Search Site
+        call: doctave.searchsite
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: doctave-mcp
+    transport: http
+    description: MCP adapter for Doctave API for AI agent use.
+    tools:
+    - name: listsites
+      description: Doctave List Sites
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: doctave.listsites
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createsite
+      description: Doctave Create Site
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: doctave.createsite
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getsite
+      description: Doctave Get Site
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: doctave.getsite
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatesite
+      description: Doctave Update Site
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: doctave.updatesite
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletesite
+      description: Doctave Delete Site
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: doctave.deletesite
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listdeployments
+      description: Doctave List Deployments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: doctave.listdeployments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createdeployment
+      description: Doctave Create Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: doctave.createdeployment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdeployment
+      description: Doctave Get Deployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: doctave.getdeployment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listpages
+      description: Doctave List Pages
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: doctave.listpages
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createpage
+      description: Doctave Create Page
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: doctave.createpage
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpage
+      description: Doctave Get Page
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: doctave.getpage
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatepage
+      description: Doctave Update Page
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: doctave.updatepage
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletepage
+      description: Doctave Delete Page
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: doctave.deletepage
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: searchsite
+      description: Doctave Search Site
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: doctave.searchsite
+      with:
+        q: tools.q
+        limit: tools.limit
+        offset: tools.offset
+      inputParameters:
+      - name: q
+        type: string
+        description: The search query string.
+        required: true
+      - name: limit
+        type: integer
+        description: Maximum number of results to return.
+      - name: offset
+        type: integer
+        description: Number of results to skip for pagination.
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    DOCTAVE_TOKEN: DOCTAVE_TOKEN
