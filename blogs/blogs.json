@@ -3,11 +3,11 @@
   "feeds": [
     {
       "source": "https://www.doctave.com/blog",
-      "feed_url": "https://www.doctave.com/feed.xml",
-      "saved": 10,
-      "title": "Doctave \u00b7 Build beautiful developer portals with docs-as-code"
+      "feed_url": "https://www.doctave.com/feed",
+      "title": "Doctave \u00b7 Build beautiful developer portals with docs-as-code",
+      "saved": 0
     }
   ],
   "post_count": 10,
-  "fetched": "2026-05-03T23:27:09Z"
+  "fetched": "2026-05-09T20:17:51Z"
 }
