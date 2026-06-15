@@ -1,0 +1,360 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Doctave API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Doctave List Sites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.doctave.com/v1/sites"
+          },
+          "docs": "Returns a list of all documentation sites associated with the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Doctave Create Site",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doctave.com/v1/sites",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new documentation site with the provided configuration."
+        },
+        {
+          "info": {
+            "name": "Doctave Get Site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.doctave.com/v1/sites/:siteId",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific documentation site."
+        },
+        {
+          "info": {
+            "name": "Doctave Update Site",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.doctave.com/v1/sites/:siteId",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing documentation site."
+        },
+        {
+          "info": {
+            "name": "Doctave Delete Site",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.doctave.com/v1/sites/:siteId",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              }
+            ]
+          },
+          "docs": "Deletes a documentation site and all associated content."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Deployments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Doctave List Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.doctave.com/v1/sites/:siteId/deployments",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              }
+            ]
+          },
+          "docs": "Returns a list of all deployments for a specific documentation site, ordered by creation date."
+        },
+        {
+          "info": {
+            "name": "Doctave Create Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doctave.com/v1/sites/:siteId/deployments",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a new deployment for the documentation site, building and publishing the latest content from the configured source."
+        },
+        {
+          "info": {
+            "name": "Doctave Get Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.doctave.com/v1/sites/:siteId/deployments/:deploymentId",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment."
+              }
+            ]
+          },
+          "docs": "Returns the details and status of a specific deployment."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Doctave List Pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.doctave.com/v1/sites/:siteId/pages",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              }
+            ]
+          },
+          "docs": "Returns a list of all pages within a documentation site, including their metadata and hierarchy."
+        },
+        {
+          "info": {
+            "name": "Doctave Create Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doctave.com/v1/sites/:siteId/pages",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new documentation page within a site."
+        },
+        {
+          "info": {
+            "name": "Doctave Get Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.doctave.com/v1/sites/:siteId/pages/:pageId",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation page."
+              }
+            ]
+          },
+          "docs": "Returns the content and metadata of a specific documentation page."
+        },
+        {
+          "info": {
+            "name": "Doctave Update Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.doctave.com/v1/sites/:siteId/pages/:pageId",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation page."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the content or metadata of an existing documentation page."
+        },
+        {
+          "info": {
+            "name": "Doctave Delete Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.doctave.com/v1/sites/:siteId/pages/:pageId",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation page."
+              }
+            ]
+          },
+          "docs": "Deletes a documentation page from the site."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Doctave Search Site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.doctave.com/v1/sites/:siteId/search",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "The search query string."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to skip for pagination."
+              }
+            ]
+          },
+          "docs": "Performs a full-text search across all pages within a documentation site and returns matching results with highlighted snippets."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
