@@ -9,6 +9,13 @@
       "method": "feed"
     },
     {
+      "source": "https://www.doctave.com/feed.xml",
+      "feed_url": "https://www.doctave.com/feed.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
       "source": "https://www.doctave.com/blog",
       "feed_url": "https://www.doctave.com/feed.xml",
       "title": "",
@@ -17,5 +24,5 @@
     }
   ],
   "post_count": 14,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:03:07Z"
 }
