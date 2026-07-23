@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: Doctave Deployments Search API
+  description: The Doctave API provides programmatic access to manage documentation sites, deployments, pages, and search on the Doctave docs-as-code platform. It allows teams to automate documentation workflows, trigger deployments, manage site configurations, and integrate documentation search into their own applications and developer portals.
+  version: 1.0.0
+  contact:
+    name: Doctave
+    url: https://www.doctave.com/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.doctave.com/v1
+  description: Doctave Production API
+security:
+- bearerAuth: []
+tags:
+- name: Search
+  description: Search across documentation site content.
+paths:
+  /sites/{siteId}/search:
+    get:
+      operationId: searchSite
+      summary: Doctave Search Site
+      description: Performs a full-text search across all pages within a documentation site and returns matching results with highlighted snippets.
+      tags:
+      - Search
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - name: q
+        in: query
+        required: true
+        description: The search query string.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: Maximum number of results to return.
+        schema:
+          type: integer
+          default: 20
+      - name: offset
+        in: query
+        required: false
+        description: Number of results to skip for pagination.
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: Search results matching the query.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+components:
+  schemas:
+    SearchResult:
+      type: object
+      properties:
+        pageId:
+          type: string
+          description: Identifier of the matching page.
+        title:
+          type: string
+          description: Title of the matching page.
+        slug:
+          type: string
+          description: URL slug of the matching page.
+        snippet:
+          type: string
+          description: Text snippet with highlighted matching terms.
+        score:
+          type: number
+          description: Relevance score for the search result.
+      required:
+      - pageId
+      - title
+      - snippet
+    SearchResults:
+      type: object
+      properties:
+        query:
+          type: string
+          description: The original search query.
+        totalResults:
+          type: integer
+          description: Total number of matching results.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+      required:
+      - query
+      - totalResults
+      - results
+  parameters:
+    SiteId:
+      name: siteId
+      in: path
+      required: true
+      description: The unique identifier of the documentation site.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Authentication token obtained from the Doctave dashboard or via API key management.

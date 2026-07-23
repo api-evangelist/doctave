@@ -1,0 +1,164 @@
+openapi: 3.1.0
+info:
+  title: Doctave Deployments API
+  description: The Doctave API provides programmatic access to manage documentation sites, deployments, pages, and search on the Doctave docs-as-code platform. It allows teams to automate documentation workflows, trigger deployments, manage site configurations, and integrate documentation search into their own applications and developer portals.
+  version: 1.0.0
+  contact:
+    name: Doctave
+    url: https://www.doctave.com/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.doctave.com/v1
+  description: Doctave Production API
+security:
+- bearerAuth: []
+tags:
+- name: Deployments
+  description: Trigger and monitor documentation site deployments.
+paths:
+  /sites/{siteId}/deployments:
+    get:
+      operationId: listDeployments
+      summary: Doctave List Deployments
+      description: Returns a list of all deployments for a specific documentation site, ordered by creation date.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: A list of deployments for the site.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Deployment'
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+    post:
+      operationId: createDeployment
+      summary: Doctave Create Deployment
+      description: Triggers a new deployment for the documentation site, building and publishing the latest content from the configured source.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeploymentInput'
+      responses:
+        '201':
+          description: The newly created deployment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '400':
+          description: The request body is invalid.
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+  /sites/{siteId}/deployments/{deploymentId}:
+    get:
+      operationId: getDeployment
+      summary: Doctave Get Deployment
+      description: Returns the details and status of a specific deployment.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/DeploymentId'
+      responses:
+        '200':
+          description: The requested deployment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified deployment was not found.
+components:
+  schemas:
+    DeploymentInput:
+      type: object
+      properties:
+        branch:
+          type: string
+          description: Git branch to deploy from.
+        commitSha:
+          type: string
+          description: Specific commit SHA to deploy.
+    Deployment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the deployment.
+        siteId:
+          type: string
+          description: Identifier of the site this deployment belongs to.
+        status:
+          type: string
+          enum:
+          - pending
+          - building
+          - deploying
+          - live
+          - failed
+          description: Current status of the deployment.
+        commitSha:
+          type: string
+          description: Git commit SHA that triggered the deployment.
+        branch:
+          type: string
+          description: Git branch used for this deployment.
+        triggeredBy:
+          type: string
+          description: User or system that triggered the deployment.
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the deployment was created.
+        finishedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the deployment finished.
+        buildLog:
+          type: string
+          description: URL to the build log for this deployment.
+      required:
+      - id
+      - siteId
+      - status
+  parameters:
+    DeploymentId:
+      name: deploymentId
+      in: path
+      required: true
+      description: The unique identifier of the deployment.
+      schema:
+        type: string
+    SiteId:
+      name: siteId
+      in: path
+      required: true
+      description: The unique identifier of the documentation site.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Authentication token obtained from the Doctave dashboard or via API key management.

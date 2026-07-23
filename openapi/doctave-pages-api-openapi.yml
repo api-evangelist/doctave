@@ -1,0 +1,215 @@
+openapi: 3.1.0
+info:
+  title: Doctave Deployments Pages API
+  description: The Doctave API provides programmatic access to manage documentation sites, deployments, pages, and search on the Doctave docs-as-code platform. It allows teams to automate documentation workflows, trigger deployments, manage site configurations, and integrate documentation search into their own applications and developer portals.
+  version: 1.0.0
+  contact:
+    name: Doctave
+    url: https://www.doctave.com/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.doctave.com/v1
+  description: Doctave Production API
+security:
+- bearerAuth: []
+tags:
+- name: Pages
+  description: Create, read, update, and delete documentation pages.
+paths:
+  /sites/{siteId}/pages:
+    get:
+      operationId: listPages
+      summary: Doctave List Pages
+      description: Returns a list of all pages within a documentation site, including their metadata and hierarchy.
+      tags:
+      - Pages
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: A list of documentation pages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Page'
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+    post:
+      operationId: createPage
+      summary: Doctave Create Page
+      description: Creates a new documentation page within a site.
+      tags:
+      - Pages
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageInput'
+      responses:
+        '201':
+          description: The newly created page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: The request body is invalid.
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified site was not found.
+  /sites/{siteId}/pages/{pageId}:
+    get:
+      operationId: getPage
+      summary: Doctave Get Page
+      description: Returns the content and metadata of a specific documentation page.
+      tags:
+      - Pages
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/PageId'
+      responses:
+        '200':
+          description: The requested documentation page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified page was not found.
+    put:
+      operationId: updatePage
+      summary: Doctave Update Page
+      description: Updates the content or metadata of an existing documentation page.
+      tags:
+      - Pages
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/PageId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageInput'
+      responses:
+        '200':
+          description: The updated documentation page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: The request body is invalid.
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified page was not found.
+    delete:
+      operationId: deletePage
+      summary: Doctave Delete Page
+      description: Deletes a documentation page from the site.
+      tags:
+      - Pages
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/PageId'
+      responses:
+        '204':
+          description: The page was successfully deleted.
+        '401':
+          description: Authentication credentials are missing or invalid.
+        '404':
+          description: The specified page was not found.
+components:
+  schemas:
+    Page:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the documentation page.
+        siteId:
+          type: string
+          description: Identifier of the site this page belongs to.
+        title:
+          type: string
+          description: Title of the documentation page.
+        slug:
+          type: string
+          description: URL-friendly slug for the page.
+        content:
+          type: string
+          description: Markdown content of the documentation page.
+        parentId:
+          type: string
+          description: Identifier of the parent page for hierarchical navigation.
+        order:
+          type: integer
+          description: Sort order of the page within its parent.
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the page was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the page was last updated.
+      required:
+      - id
+      - siteId
+      - title
+      - slug
+    PageInput:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the documentation page.
+        slug:
+          type: string
+          description: URL-friendly slug for the page.
+        content:
+          type: string
+          description: Markdown content of the documentation page.
+        parentId:
+          type: string
+          description: Identifier of the parent page for hierarchical navigation.
+        order:
+          type: integer
+          description: Sort order of the page within its parent.
+      required:
+      - title
+      - content
+  parameters:
+    SiteId:
+      name: siteId
+      in: path
+      required: true
+      description: The unique identifier of the documentation site.
+      schema:
+        type: string
+    PageId:
+      name: pageId
+      in: path
+      required: true
+      description: The unique identifier of the documentation page.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Authentication token obtained from the Doctave dashboard or via API key management.
