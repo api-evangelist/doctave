@@ -1,22 +1,50 @@
 aid: doctave
 url: https://raw.githubusercontent.com/api-evangelist/doctave/refs/heads/main/apis.yml
 apis:
-  - aid: doctave:doctave
-    name: Doctave API
-    tags:
-      - Docs-As-Code
-      - Documentation
-      - Platform
-    humanURL: https://www.doctave.com/
-    properties:
-      - url: https://www.doctave.com/
-        type: Documentation
-      - url: openapi/doctave-doctave-openapi.yml
-        type: OpenAPI
-    description: >-
-      The Doctave API provides programmatic access to manage documentation sites, deployments, pages, and search on the
-      Doctave docs-as-code platform. It allows teams to automate documentation workflows, trigger deployments, manage
-      site configurations, and integrate documentation search into their own applications and developer portals.
+- aid: doctave:doctave-deployments-api
+  name: Doctave Deployments API
+  description: Trigger and monitor documentation site deployments.
+  humanURL: https://www.doctave.com/
+  tags:
+  - Deployments
+  properties:
+  - type: OpenAPI
+    url: openapi/doctave-deployments-api-openapi.yml
+  - type: Documentation
+    url: https://www.doctave.com/
+- aid: doctave:doctave-pages-api
+  name: Doctave Pages API
+  description: Create, read, update, and delete documentation pages.
+  humanURL: https://www.doctave.com/
+  tags:
+  - Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/doctave-pages-api-openapi.yml
+  - type: Documentation
+    url: https://www.doctave.com/
+- aid: doctave:doctave-search-api
+  name: Doctave Search API
+  description: Search across documentation site content.
+  humanURL: https://www.doctave.com/
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/doctave-search-api-openapi.yml
+  - type: Documentation
+    url: https://www.doctave.com/
+- aid: doctave:doctave-sites-api
+  name: Doctave Sites API
+  description: Manage documentation sites and their configurations.
+  humanURL: https://www.doctave.com/
+  tags:
+  - Sites
+  properties:
+  - type: OpenAPI
+    url: openapi/doctave-sites-api-openapi.yml
+  - type: Documentation
+    url: https://www.doctave.com/
 name: Doctave
 tags:
   - Documentation
@@ -24,7 +52,20 @@ tags:
   - Platform
   - Portals
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/doctave.png
 access: 3rd-Party
 common:
   - type: AgenticAccess
