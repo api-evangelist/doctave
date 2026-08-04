@@ -1,0 +1,20 @@
+{
+  "provider": "doctave",
+  "sources": [
+    "doctave-deployments-api-openapi.yml",
+    "doctave-pages-api-openapi.yml",
+    "doctave-search-api-openapi.yml",
+    "doctave-sites-api-openapi.yml"
+  ],
+  "outputs": [
+    "doctave-deployments-api-openapi.yml",
+    "doctave-pages-api-openapi.yml",
+    "doctave-search-api-openapi.yml",
+    "doctave-sites-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
