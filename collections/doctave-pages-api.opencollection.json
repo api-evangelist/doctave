@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Doctave Deployments Pages API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Doctave List Pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.doctave.com/v1/sites/:siteId/pages",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              }
+            ]
+          },
+          "docs": "Returns a list of all pages within a documentation site, including their metadata and hierarchy."
+        },
+        {
+          "info": {
+            "name": "Doctave Create Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doctave.com/v1/sites/:siteId/pages",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new documentation page within a site."
+        },
+        {
+          "info": {
+            "name": "Doctave Get Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.doctave.com/v1/sites/:siteId/pages/:pageId",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation page."
+              }
+            ]
+          },
+          "docs": "Returns the content and metadata of a specific documentation page."
+        },
+        {
+          "info": {
+            "name": "Doctave Update Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.doctave.com/v1/sites/:siteId/pages/:pageId",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation page."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the content or metadata of an existing documentation page."
+        },
+        {
+          "info": {
+            "name": "Doctave Delete Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.doctave.com/v1/sites/:siteId/pages/:pageId",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation page."
+              }
+            ]
+          },
+          "docs": "Deletes a documentation page from the site."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

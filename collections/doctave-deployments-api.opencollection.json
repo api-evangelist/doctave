@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Doctave Deployments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deployments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Doctave List Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.doctave.com/v1/sites/:siteId/deployments",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              }
+            ]
+          },
+          "docs": "Returns a list of all deployments for a specific documentation site, ordered by creation date."
+        },
+        {
+          "info": {
+            "name": "Doctave Create Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doctave.com/v1/sites/:siteId/deployments",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a new deployment for the documentation site, building and publishing the latest content from the configured source."
+        },
+        {
+          "info": {
+            "name": "Doctave Get Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.doctave.com/v1/sites/:siteId/deployments/:deploymentId",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the documentation site."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment."
+              }
+            ]
+          },
+          "docs": "Returns the details and status of a specific deployment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
