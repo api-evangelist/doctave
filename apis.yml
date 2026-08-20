@@ -6,6 +6,8 @@ apis:
   description: Trigger and monitor documentation site deployments.
   humanURL: https://www.doctave.com/
   tags:
+  - Deployment
+  tags_raw:
   - Deployments
   properties:
   - type: OpenAPI
@@ -47,6 +49,11 @@ apis:
     url: https://www.doctave.com/
 name: Doctave
 tags:
+  - Documentation
+  - OpenAPI
+  - Platform
+  - Portal
+tags_raw:
   - Documentation
   - OpenAPI
   - Platform
