@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Doctave Deployments Sites API
+  title: Doctave Sites API
   description: The Doctave API provides programmatic access to manage documentation sites, deployments, pages, and search on the Doctave docs-as-code platform. It allows teams to automate documentation workflows, trigger deployments, manage site configurations, and integrate documentation search into their own applications and developer portals.
   version: 1.0.0
   contact:
@@ -123,35 +123,6 @@ paths:
           description: The specified site was not found.
 components:
   schemas:
-    SiteInput:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Display name of the documentation site.
-        slug:
-          type: string
-          description: URL-friendly slug for the site.
-        description:
-          type: string
-          description: A brief description of the documentation site.
-        customDomain:
-          type: string
-          description: Custom domain configured for the site.
-        repository:
-          type: string
-          description: Source repository URL for the documentation content.
-        branch:
-          type: string
-          description: Git branch used for building the site.
-        visibility:
-          type: string
-          enum:
-          - public
-          - private
-          description: Whether the site is publicly accessible or private.
-      required:
-      - name
     Site:
       type: object
       properties:
@@ -194,6 +165,35 @@ components:
       - id
       - name
       - slug
+    SiteInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Display name of the documentation site.
+        slug:
+          type: string
+          description: URL-friendly slug for the site.
+        description:
+          type: string
+          description: A brief description of the documentation site.
+        customDomain:
+          type: string
+          description: Custom domain configured for the site.
+        repository:
+          type: string
+          description: Source repository URL for the documentation content.
+        branch:
+          type: string
+          description: Git branch used for building the site.
+        visibility:
+          type: string
+          enum:
+          - public
+          - private
+          description: Whether the site is publicly accessible or private.
+      required:
+      - name
   parameters:
     SiteId:
       name: siteId

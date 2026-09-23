@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Doctave Deployments Pages API
+  title: Doctave Pages API
   description: The Doctave API provides programmatic access to manage documentation sites, deployments, pages, and search on the Doctave docs-as-code platform. It allows teams to automate documentation workflows, trigger deployments, manage site configurations, and integrate documentation search into their own applications and developer portals.
   version: 1.0.0
   contact:
@@ -133,6 +133,21 @@ paths:
         '404':
           description: The specified page was not found.
 components:
+  parameters:
+    SiteId:
+      name: siteId
+      in: path
+      required: true
+      description: The unique identifier of the documentation site.
+      schema:
+        type: string
+    PageId:
+      name: pageId
+      in: path
+      required: true
+      description: The unique identifier of the documentation page.
+      schema:
+        type: string
   schemas:
     Page:
       type: object
@@ -192,21 +207,6 @@ components:
       required:
       - title
       - content
-  parameters:
-    SiteId:
-      name: siteId
-      in: path
-      required: true
-      description: The unique identifier of the documentation site.
-      schema:
-        type: string
-    PageId:
-      name: pageId
-      in: path
-      required: true
-      description: The unique identifier of the documentation page.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
