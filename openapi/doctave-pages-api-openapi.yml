@@ -134,18 +134,18 @@ paths:
           description: The specified page was not found.
 components:
   parameters:
-    SiteId:
-      name: siteId
-      in: path
-      required: true
-      description: The unique identifier of the documentation site.
-      schema:
-        type: string
     PageId:
       name: pageId
       in: path
       required: true
       description: The unique identifier of the documentation page.
+      schema:
+        type: string
+    SiteId:
+      name: siteId
+      in: path
+      required: true
+      description: The unique identifier of the documentation site.
       schema:
         type: string
   schemas:

@@ -122,6 +122,14 @@ paths:
         '404':
           description: The specified site was not found.
 components:
+  parameters:
+    SiteId:
+      name: siteId
+      in: path
+      required: true
+      description: The unique identifier of the documentation site.
+      schema:
+        type: string
   schemas:
     Site:
       type: object
@@ -194,14 +202,6 @@ components:
           description: Whether the site is publicly accessible or private.
       required:
       - name
-  parameters:
-    SiteId:
-      name: siteId
-      in: path
-      required: true
-      description: The unique identifier of the documentation site.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

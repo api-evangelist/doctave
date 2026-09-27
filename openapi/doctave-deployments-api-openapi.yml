@@ -90,15 +90,6 @@ paths:
           description: The specified deployment was not found.
 components:
   schemas:
-    DeploymentInput:
-      type: object
-      properties:
-        branch:
-          type: string
-          description: Git branch to deploy from.
-        commitSha:
-          type: string
-          description: Specific commit SHA to deploy.
     Deployment:
       type: object
       properties:
@@ -141,6 +132,15 @@ components:
       - id
       - siteId
       - status
+    DeploymentInput:
+      type: object
+      properties:
+        branch:
+          type: string
+          description: Git branch to deploy from.
+        commitSha:
+          type: string
+          description: Specific commit SHA to deploy.
   parameters:
     SiteId:
       name: siteId
