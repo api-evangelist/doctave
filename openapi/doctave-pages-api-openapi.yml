@@ -133,21 +133,6 @@ paths:
         '404':
           description: The specified page was not found.
 components:
-  parameters:
-    PageId:
-      name: pageId
-      in: path
-      required: true
-      description: The unique identifier of the documentation page.
-      schema:
-        type: string
-    SiteId:
-      name: siteId
-      in: path
-      required: true
-      description: The unique identifier of the documentation site.
-      schema:
-        type: string
   schemas:
     Page:
       type: object
@@ -207,6 +192,21 @@ components:
       required:
       - title
       - content
+  parameters:
+    PageId:
+      name: pageId
+      in: path
+      required: true
+      description: The unique identifier of the documentation page.
+      schema:
+        type: string
+    SiteId:
+      name: siteId
+      in: path
+      required: true
+      description: The unique identifier of the documentation site.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

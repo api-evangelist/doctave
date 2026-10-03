@@ -89,7 +89,31 @@ paths:
         '404':
           description: The specified deployment was not found.
 components:
+  parameters:
+    DeploymentId:
+      name: deploymentId
+      in: path
+      required: true
+      description: The unique identifier of the deployment.
+      schema:
+        type: string
+    SiteId:
+      name: siteId
+      in: path
+      required: true
+      description: The unique identifier of the documentation site.
+      schema:
+        type: string
   schemas:
+    DeploymentInput:
+      type: object
+      properties:
+        branch:
+          type: string
+          description: Git branch to deploy from.
+        commitSha:
+          type: string
+          description: Specific commit SHA to deploy.
     Deployment:
       type: object
       properties:
@@ -132,30 +156,6 @@ components:
       - id
       - siteId
       - status
-    DeploymentInput:
-      type: object
-      properties:
-        branch:
-          type: string
-          description: Git branch to deploy from.
-        commitSha:
-          type: string
-          description: Specific commit SHA to deploy.
-  parameters:
-    SiteId:
-      name: siteId
-      in: path
-      required: true
-      description: The unique identifier of the documentation site.
-      schema:
-        type: string
-    DeploymentId:
-      name: deploymentId
-      in: path
-      required: true
-      description: The unique identifier of the deployment.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
