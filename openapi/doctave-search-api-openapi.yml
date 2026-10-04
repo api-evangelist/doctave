@@ -59,6 +59,14 @@ paths:
         '404':
           description: The specified site was not found.
 components:
+  parameters:
+    SiteId:
+      name: siteId
+      in: path
+      required: true
+      description: The unique identifier of the documentation site.
+      schema:
+        type: string
   schemas:
     SearchResult:
       type: object
@@ -99,14 +107,6 @@ components:
       - query
       - totalResults
       - results
-  parameters:
-    SiteId:
-      name: siteId
-      in: path
-      required: true
-      description: The unique identifier of the documentation site.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
