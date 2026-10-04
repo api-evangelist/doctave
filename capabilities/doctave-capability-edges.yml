@@ -1,0 +1,25 @@
+slug: doctave
+provider: Doctave
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Pages
+  spec_file: doctave-pages-api-openapi.yml
+  capability_id: BC-4270.30
+  capability_id_l1: BC-4270
+  capability_name: Developer Portal Management
+  confidence: 0.75
+  evidence: 'POST /sites/{siteId}/pages — Doctave Create Page; vendor: "Bring your guides, your API references
+    and SDK documentation, and build developer portals"'
+  reason: CRUD over documentation pages of a technical docs/developer portal site, which is squarely Developer
+    Portal Management (documentation and interactive references for developers).
