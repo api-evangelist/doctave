@@ -59,15 +59,24 @@ paths:
         '404':
           description: The specified site was not found.
 components:
-  parameters:
-    SiteId:
-      name: siteId
-      in: path
-      required: true
-      description: The unique identifier of the documentation site.
-      schema:
-        type: string
   schemas:
+    SearchResults:
+      type: object
+      properties:
+        query:
+          type: string
+          description: The original search query.
+        totalResults:
+          type: integer
+          description: Total number of matching results.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+      required:
+      - query
+      - totalResults
+      - results
     SearchResult:
       type: object
       properties:
@@ -90,23 +99,14 @@ components:
       - pageId
       - title
       - snippet
-    SearchResults:
-      type: object
-      properties:
-        query:
-          type: string
-          description: The original search query.
-        totalResults:
-          type: integer
-          description: Total number of matching results.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchResult'
-      required:
-      - query
-      - totalResults
-      - results
+  parameters:
+    SiteId:
+      name: siteId
+      in: path
+      required: true
+      description: The unique identifier of the documentation site.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

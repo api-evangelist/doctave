@@ -133,22 +133,28 @@ paths:
         '404':
           description: The specified page was not found.
 components:
-  parameters:
-    SiteId:
-      name: siteId
-      in: path
-      required: true
-      description: The unique identifier of the documentation site.
-      schema:
-        type: string
-    PageId:
-      name: pageId
-      in: path
-      required: true
-      description: The unique identifier of the documentation page.
-      schema:
-        type: string
   schemas:
+    PageInput:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the documentation page.
+        slug:
+          type: string
+          description: URL-friendly slug for the page.
+        content:
+          type: string
+          description: Markdown content of the documentation page.
+        parentId:
+          type: string
+          description: Identifier of the parent page for hierarchical navigation.
+        order:
+          type: integer
+          description: Sort order of the page within its parent.
+      required:
+      - title
+      - content
     Page:
       type: object
       properties:
@@ -186,27 +192,21 @@ components:
       - siteId
       - title
       - slug
-    PageInput:
-      type: object
-      properties:
-        title:
-          type: string
-          description: Title of the documentation page.
-        slug:
-          type: string
-          description: URL-friendly slug for the page.
-        content:
-          type: string
-          description: Markdown content of the documentation page.
-        parentId:
-          type: string
-          description: Identifier of the parent page for hierarchical navigation.
-        order:
-          type: integer
-          description: Sort order of the page within its parent.
-      required:
-      - title
-      - content
+  parameters:
+    PageId:
+      name: pageId
+      in: path
+      required: true
+      description: The unique identifier of the documentation page.
+      schema:
+        type: string
+    SiteId:
+      name: siteId
+      in: path
+      required: true
+      description: The unique identifier of the documentation site.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
